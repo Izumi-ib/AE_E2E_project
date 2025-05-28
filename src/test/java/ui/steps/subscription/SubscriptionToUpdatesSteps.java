@@ -1,13 +1,13 @@
 package ui.steps.subscription;
 
-import pages.Homepage.HomePage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
-import utils.ConfigReader;
-import utils.DriverHelper;
+import ui.pages.HomePage.HomePage;
+import ui.utils.ConfigReader;
+import ui.utils.DriverHelper;
 
-public class SubscriptionToUpdates {
+public class SubscriptionToUpdatesSteps {
 
     WebDriver driver = DriverHelper.getDriver();
     HomePage homePage = new HomePage(driver);

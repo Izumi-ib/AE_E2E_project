@@ -1,2 +1,4 @@
-package ui.actions.subscription;public class SubscriptionToUpdatesActions {
+package ui.actions.subscription;
+
+public class SubscriptionToUpdatesActions {
 }
