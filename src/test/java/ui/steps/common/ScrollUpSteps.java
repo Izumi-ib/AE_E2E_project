@@ -1,19 +1,24 @@
 package ui.steps.common;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
-import pages.CommonMethods;
-import pages.Homepage.HomePage;
 import ui.pages.HomePage.HomePage;
+import ui.pages.commonMethods.ScrollMethods;
 import ui.utils.DriverHelper;
-import utils.DriverHelper;
 
-public class scrollUpButtons {
+public class ScrollUpSteps {
 
     WebDriver driver = DriverHelper.getDriver();
     HomePage homePage = new HomePage(driver);
-    scrollUpButtons  = new CommonMethods(driver);
+    ScrollMethods scrollMethods = new ScrollMethods(driver);
+
+    @Given("user clicks consent button verifies home page is visible")
+    public void user_clicks_consent_button_verifies_home_page_is_visible() {
+        homePage.clickConsentButton();
+        homePage.validateHomePage(driver.getCurrentUrl());
+    }
 
     @Then("user verifies that the top title in the Home page {string} is displayed")
     public void user_verifies_that_the_top_title_in_the_home_page_is_displayed(String expectedTitle) {
@@ -22,6 +27,11 @@ public class scrollUpButtons {
 
     @When("user scrolls up to Page top")
     public void user_scrolls_up_to_page_top() {
-        commonMethods.scrollUp();
+        scrollMethods.scrollUp();
+    }
+
+    @When("user clicks Upward Arrow button")
+    public void user_clicks_upward_arrow_button() {
+        scrollMethods.clickArrowScrollUpButton();
     }
 }

@@ -1,4 +1,4 @@
-package pages;
+package ui.pages.commonMethods;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -10,17 +10,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.DriverHelper;
+import ui.utils.DriverHelper;
 
 import java.time.Duration;
 import java.util.List;
 
-public class CommonMethods {
+public class ScrollMethods {
     WebDriver driver = DriverHelper.getDriver();
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     Actions actions = new Actions(driver);
 
-    public CommonMethods(WebDriver driver){
+    public ScrollMethods(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
     @FindBy(id = "scrollUp")
