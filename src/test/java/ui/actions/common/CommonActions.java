@@ -1,4 +1,4 @@
-package ui.pages.commonMethods;
+package ui.actions.common;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -6,33 +6,32 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ui.pages.common.CommonUIElements;
 import ui.utils.DriverHelper;
 
 import java.time.Duration;
 import java.util.List;
 
-public class ScrollMethods {
-    WebDriver driver = DriverHelper.getDriver();
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    Actions actions = new Actions(driver);
+public class CommonActions {
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+    private final Actions actions;
+    private final CommonUIElements commonUIElements;
 
-    public ScrollMethods(WebDriver driver){
-        PageFactory.initElements(driver, this);
+    public CommonActions(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.actions = new Actions(driver);
+        this.commonUIElements = new CommonUIElements(driver);
     }
-    @FindBy(id = "scrollUp")
-    WebElement scrollUpArrowButton;
-    @FindBy(xpath = "//img[contains(@alt, 'Website')]")
-    WebElement automationTopLogo;
 
     public void clickArrowScrollUpButton(){
-        wait.until(ExpectedConditions.elementToBeClickable(scrollUpArrowButton)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(commonUIElements.scrollUpArrowButton)).click();
     }
     public void scrollUp(){
-        actions.moveToElement(automationTopLogo).perform();
+        actions.moveToElement(commonUIElements.automationTopLogo).perform();
     }
 
     public void validateFormSubmitErrorAlert(String expectedMessage){

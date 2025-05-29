@@ -4,15 +4,16 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
+import ui.actions.common.CommonActions;
 import ui.pages.HomePage.HomePage;
-import ui.pages.commonMethods.ScrollMethods;
+import ui.pages.common.CommonUIElements;
 import ui.utils.DriverHelper;
 
-public class ScrollUpSteps {
+public class CommonSteps {
 
     WebDriver driver = DriverHelper.getDriver();
     HomePage homePage = new HomePage(driver);
-    ScrollMethods scrollMethods = new ScrollMethods(driver);
+    CommonActions commonActions = new CommonActions(driver);
 
     @Given("user clicks consent button verifies home page is visible")
     public void user_clicks_consent_button_verifies_home_page_is_visible() {
@@ -27,11 +28,11 @@ public class ScrollUpSteps {
 
     @When("user scrolls up to Page top")
     public void user_scrolls_up_to_page_top() {
-        scrollMethods.scrollUp();
+        commonActions.scrollUp();
     }
 
     @When("user clicks Upward Arrow button")
     public void user_clicks_upward_arrow_button() {
-        scrollMethods.clickArrowScrollUpButton();
+        commonActions.clickArrowScrollUpButton();
     }
 }
