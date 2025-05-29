@@ -10,44 +10,53 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 
+
+
 public class DriverHelper {
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-
-    private static WebDriver driver;
-
-    private DriverHelper() {
+    public DriverHelper(){
     }
 
     public static WebDriver getDriver() {
-        if (driver == null || ((RemoteWebDriver) driver).getSessionId() == null) {
-//            String browser = "chrome";
-            switch (ConfigReader.readProperty("browser")) {
+        if (driver.get() == null || ((RemoteWebDriver) driver.get()).getSessionId() == null) {
+            String browser = ConfigReader.readProperty("browser");
+
+            switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--headless=new");
-                    options.addArguments("--disable-gpu");
-                    options.addArguments("--window-size=1920,1080");
-                    options.addArguments("--no-sandbox");
-                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--remote-allow-origins=*");
+//                    options.addArguments("--headless=new");
+//                    options.addArguments("--disable-gpu");
+//                    options.addArguments("--window-size=1920,1080");
+//                    options.addArguments("--no-sandbox");
+//                    options.addArguments("--disable-dev-shm-usage");
+                    driver.set(new ChromeDriver(options));
 
-                    driver = new ChromeDriver();
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
+                    driver.set(new FirefoxDriver());
                     break;
                 case "edge":
                     WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
+                    driver.set(new EdgeDriver());
                     break;
+                default:
+                    throw new RuntimeException("Unsupported browser: " + browser);
             }
-//            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            driver.manage().deleteAllCookies();
+
+            driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            driver.get().manage().deleteAllCookies();
         }
-        return driver;
+        return driver.get();
     }
 
-
+    public static void quitDriver() {
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
+        }
+    }
 }
