@@ -1,5 +1,6 @@
 @ui @regression @scroll
 Feature: User scrolls up and down with arrow button and without
+
   Background:
     Given user clicks consent button verifies home page is visible
 
