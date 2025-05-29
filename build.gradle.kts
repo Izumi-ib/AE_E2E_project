@@ -12,21 +12,28 @@ repositories {
 dependencies {
     // Cucumber
     testImplementation("io.cucumber:cucumber-java:7.20.1")
-    testImplementation("io.cucumber:cucumber-junit:7.20.1")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.20.1")
     // JUnit 5
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     // Selenium
-    testImplementation("org.seleniumhq.selenium:selenium-java:4.8.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.32.0")
+    implementation("org.seleniumhq.selenium:selenium-devtools-v136:4.32.0")
     // WebDriverManager
-    testImplementation("io.github.bonigarcia:webdrivermanager:5.8.0")
+    testImplementation("io.github.bonigarcia:webdrivermanager:5.9.2")
     // Allure for JUnit 5 and Cucumber
     testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.24.0")
     testImplementation("io.qameta.allure:allure-junit5:2.24.0")
-
-
 }
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+        showStandardStreams = true
+    }
 }
