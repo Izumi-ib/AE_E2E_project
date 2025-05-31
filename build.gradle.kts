@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("io.qameta.allure") version "2.11.2"
 }
 
 group = "org.example"
@@ -22,18 +23,23 @@ dependencies {
     // WebDriverManager
     testImplementation("io.github.bonigarcia:webdrivermanager:5.9.2")
     // Allure for JUnit 5 and Cucumber
-    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.24.0")
-    testImplementation("io.qameta.allure:allure-junit5:2.24.0")
+    testImplementation("io.qameta.allure:allure-cucumber7-jvm:2.27.0")
 }
 
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
+allure {
+    version.set("2.27.0")
 }
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty("cucumber.plugin", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm")
+    systemProperty("allure.results.directory", "build/allure-results")
     testLogging {
         events("passed", "skipped", "failed")
         showStandardStreams = true
     }
+}
+
+tasks.register<Exec>("openAllureReport") {
+    commandLine("allure", "open", "build/reports/allure-report/allureReport")
 }
