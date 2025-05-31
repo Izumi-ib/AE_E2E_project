@@ -1,5 +1,6 @@
 package ui.actions.common;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -26,9 +27,12 @@ public class CommonActions {
         this.commonUIElements = new CommonUIElements(driver);
     }
 
+    @Step("Click the upward arrow scroll button")
     public void clickArrowScrollUpButton(){
         wait.until(ExpectedConditions.elementToBeClickable(commonUIElements.scrollUpArrowButton)).click();
     }
+
+    @Step("Scroll up to the top of the page")
     public void scrollUp(){
         actions.moveToElement(commonUIElements.automationTopLogo).perform();
     }

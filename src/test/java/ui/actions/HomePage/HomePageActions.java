@@ -1,5 +1,6 @@
 package ui.actions.HomePage;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -19,19 +20,22 @@ public class HomePageActions {
     private final WebDriverWait wait;
     private final HomePage homePage;
 
-    public HomePageActions(WebDriver driver){
+    public HomePageActions(WebDriver driver) {
         this.driver = driver;
         this.actions = new Actions(driver);
         this.homePage = new HomePage(driver);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    @Step("Click consent button")
     public void clickConsentButton() {
         homePage.consentButton.click();
     }
 
+    @Step("Validate that current URL is {url}")
     public void validateHomePage(String actualUrl) {
-        if (homePage.homePageButton.isDisplayed()) Assertions.assertEquals(actualUrl, "https://automationexercise.com/");
+        if (homePage.homePageButton.isDisplayed())
+            Assertions.assertEquals(actualUrl, "https://automationexercise.com/");
     }
 
     public void clickSignAndLoginButton() {
@@ -70,23 +74,28 @@ public class HomePageActions {
         homePage.cartPageButton.click();
     }
 
+    @Step("Scroll to the subscription section footer")
     public void scrollToFooter() {
         Actions actions = new Actions(driver);
         actions.moveToElement(homePage.subscriptionTitle).perform();
     }
 
+    @Step("Validate that the subscription title is displayed and equals to '{expectedTitle}'")
     public void validateSubscriptionTitle(String expectedTitle) {
         Assertions.assertTrue(homePage.subscriptionTitle.isDisplayed() && homePage.subscriptionTitle.getText().equals(expectedTitle));
     }
 
+    @Step("Enter email '{email}' into subscription input field")
     public void enterSubscribeDetails(String email) {
         homePage.subscriptionEmailInput.sendKeys(email);
     }
 
+    @Step("Click on the subscribe button")
     public void clickSubscribeButton() {
         homePage.subscribeButton.submit();
     }
 
+    @Step("Validate successful subscription message equals to '{expectedMessage}'")
     public void validateSuccessfulSubscribeMessage(String expectedMessage) {
         if (homePage.successfullySubscribedAlert.isDisplayed())
             Assertions.assertTrue(homePage.successfullySubscribedAlert.getText().equals(expectedMessage));
@@ -117,6 +126,7 @@ public class HomePageActions {
         }
     }
 
+    @Step("Validate that the top carousel contains a visible title with text containing '{expectedTitle}'")
     public void validateTopCarouselTitles(String expectedTitle) {
 
         boolean isTitleHere = false;
