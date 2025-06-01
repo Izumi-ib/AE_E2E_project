@@ -9,16 +9,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ui.pages.HomePage.HomePage;
 import ui.utils.BrowserUtils;
 
 import java.time.Duration;
+import java.util.logging.LoggingPermission;
 
 public class HomePageActions {
     private final WebDriver driver;
     private final Actions actions;
     private final WebDriverWait wait;
     private final HomePage homePage;
+    private static final Logger logger = LoggerFactory.getLogger(LoggingPermission.class);
 
     public HomePageActions(WebDriver driver) {
         this.driver = driver;
@@ -33,9 +37,16 @@ public class HomePageActions {
     }
 
     @Step("Validate that current URL is {url}")
-    public void validateHomePage(String actualUrl) {
-        if (homePage.homePageButton.isDisplayed())
-            Assertions.assertEquals(actualUrl, "https://automationexercise.com/");
+    public void validateHomePage(String url) {
+        logger.info("Validating current URL: expected='https://automationexercise.com/', actual='{}'", url);
+        try {
+            Assertions.assertEquals("https://automationexercise.com/", url);
+            logger.info("URL validation passed");
+        } catch (AssertionError e) {
+            logger.error("URL validation failed! Expected https://automationexercise.com/, but was {}", url);
+            throw e;
+        }
+
     }
 
     public void clickSignAndLoginButton() {
