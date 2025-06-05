@@ -18,6 +18,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Install Google Chrome 137
+        run: |
+          sudo apt-get update
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+
+      - name: Set Chromedriver version for WebDriverManager
+        run: echo "WDM_CHROMEDRIVER_VERSION=137.0.7151.68" >> $GITHUB_ENV
+
       - name: Grant permission to gradlew
         run: chmod +x ./gradlew
 
