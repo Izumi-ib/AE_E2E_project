@@ -24,7 +24,7 @@ public class DriverHelper {
 
             switch (browser.toLowerCase()) {
                 case "chrome":
-                    WebDriverManager.chromedriver().setup();
+                    WebDriverManager.chromedriver().driverVersion("124.0.6367.91").setup();
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--remote-allow-origins=*");
 //                    options.addArguments("--headless=new");

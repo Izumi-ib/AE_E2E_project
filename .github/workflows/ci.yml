@@ -2,7 +2,7 @@ name: Run Tests and Deploy Allure Report
 
 on:
   push:
-    branches: [ main, develop, feature/* ]
+    branches: [ main, develop, feature/*, ci-debug ]
 
 jobs:
   test-and-report:
@@ -20,6 +20,9 @@ jobs:
 
       - name: Grant permission to gradlew
         run: chmod +x ./gradlew
+
+      - name: Detect Chrome version
+        run: google-chrome --version
 
       - name: Run tests
         run: ./gradlew clean test
