@@ -2,7 +2,7 @@ name: Run Tests and Deploy Allure Report
 
 on:
   push:
-    branches: [ main, develop, feature/* ]
+    branches: [ main, develop, feature/*, ci-debug ]
 
 jobs:
   test-and-report:
@@ -20,6 +20,12 @@ jobs:
 
       - name: Grant permission to gradlew
         run: chmod +x ./gradlew
+
+      - name: Install Google Chrome
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+          google-chrome --version
 
       - name: Run tests
         run: ./gradlew clean test
