@@ -24,9 +24,10 @@ public class DriverHelper {
 
             switch (browser.toLowerCase()) {
                 case "chrome":
-                    WebDriverManager.chromedriver().driverVersion("124.0.6367.91").setup();
+                    WebDriverManager.chromedriver().driverVersion("136.0.7103.92").setup();
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--remote-allow-origins=*");
+                    System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 //                    options.addArguments("--headless=new");
 //                    options.addArguments("--disable-gpu");
 //                    options.addArguments("--window-size=1920,1080");
