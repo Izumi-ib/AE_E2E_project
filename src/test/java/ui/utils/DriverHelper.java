@@ -24,16 +24,16 @@ public class DriverHelper {
 
             switch (browser.toLowerCase()) {
                 case "chrome":
-                    WebDriverManager.chromedriver().driverVersion("136.0.7103.92").setup();
+                    WebDriverManager.chromedriver().setup();
 
                     ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--remote-allow-origins=*");
+//                    options.addArguments("--remote-allow-origins=*");
 //                    options.addArguments("--headless=new");
 //                    options.addArguments("--disable-gpu");
 //                    options.addArguments("--window-size=1920,1080");
 //                    options.addArguments("--no-sandbox");
 //                    options.addArguments("--disable-dev-shm-usage");
-                    driver.set(new ChromeDriver(options));
+                    driver.set(new ChromeDriver());
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
